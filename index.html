@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Yarn Stash</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='14' font-size='14'%3E%F0%9F%A7%B6%3C/text%3E%3C/svg%3E" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="weave" aria-hidden="true"></div>
+    <a class="skip-link" href="#wall">Skip to stash</a>
+    <div class="shell">
+      <header class="masthead">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 48 48" aria-hidden="true" width="52" height="52">
+            <circle cx="24" cy="24" r="19" class="mark-ring" />
+            <path class="mark-thread" d="M11 20c8 5 18 5 26 0M9 27c9 6 21 6 30 0M14 14c6 3 14 3 20 0" />
+          </svg>
+          <div>
+            <p class="eyebrow">Craft Supply Color Vault</p>
+            <h1>Yarn <span>Stash</span></h1>
+          </div>
+        </div>
+        <p class="tagline">Every skein, swatch, and spool you own, colour-checked before you buy more.</p>
+      </header>
+
+      <div id="banner-slot" class="banner-slot" aria-live="assertive"></div>
+
+      <div class="layout">
+        <aside class="compose" aria-labelledby="compose-title">
+          <h2 id="compose-title" class="panel-title">Add to the stash</h2>
+          <form id="entry-form" class="entry-form" novalidate>
+            <div class="field">
+              <label for="f-material">Material name</label>
+              <input id="f-material" name="material" type="text" maxlength="60" aria-describedby="e-material" required />
+              <p id="e-material" class="field-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field-row">
+              <div class="field field-color">
+                <label for="f-color">Colour</label>
+                <input id="f-color" name="color" type="color" value="#c65b47" aria-describedby="e-color" />
+                <p id="e-color" class="field-error" role="alert" hidden></p>
+              </div>
+              <div class="field field-grow">
+                <label for="f-weight">Weight or type</label>
+                <input id="f-weight" name="weight" type="text" maxlength="40" placeholder="Worsted, Fabric, Floss…" aria-describedby="e-weight" required />
+                <p id="e-weight" class="field-error" role="alert" hidden></p>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field field-grow">
+                <label for="f-quantity">Quantity</label>
+                <input id="f-quantity" name="quantity" type="number" min="0" step="any" inputmode="decimal" aria-describedby="e-quantity" required />
+                <p id="e-quantity" class="field-error" role="alert" hidden></p>
+              </div>
+              <div class="field">
+                <label for="f-unit">Unit</label>
+                <select id="f-unit" name="unit" aria-describedby="e-unit">
+                  <option value="skeins">skeins</option>
+                  <option value="meters">meters</option>
+                  <option value="yards">yards</option>
+                  <option value="other">units</option>
+                </select>
+                <p id="e-unit" class="field-error" role="alert" hidden></p>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-brand">Brand <span class="opt">(optional)</span></label>
+              <input id="f-brand" name="brand" type="text" maxlength="40" aria-describedby="e-brand" />
+              <p id="e-brand" class="field-error" role="alert" hidden></p>
+            </div>
+
+            <div class="field">
+              <label for="f-notes">Notes <span class="opt">(optional)</span></label>
+              <textarea id="f-notes" name="notes" rows="2" maxlength="200" placeholder="Bought in Edinburgh, saved for a baby blanket…" aria-describedby="e-notes"></textarea>
+              <p id="e-notes" class="field-error" role="alert" hidden></p>
+            </div>
+
+            <p id="form-note" class="form-note" role="alert" hidden></p>
+            <button type="submit" class="btn btn-primary">Add to stash</button>
+          </form>
+        </aside>
+
+        <main id="wall" class="wall" aria-live="polite" aria-busy="true">
+          <div class="toolbar">
+            <label class="ctl" for="filter-weight">
+              <span>Filter by weight / type</span>
+              <select id="filter-weight">
+                <option value="all">All supplies</option>
+              </select>
+            </label>
+            <p id="stash-count" class="stash-count"></p>
+          </div>
+
+          <div id="loading" class="loading" role="status">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="loading-text">Unspooling your stash&hellip;</span>
+          </div>
+          <div id="pegboard" class="pegboard" hidden></div>
+          <div id="empty" class="empty" hidden></div>
+        </main>
+      </div>
+    </div>
+
+    <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
